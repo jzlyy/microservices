@@ -7,12 +7,17 @@ import (
 	"log"
 	"net/http"
 	"product-service/database"
+	"product-service/middlewares"
 	"product-service/models"
 	"product-service/utils"
 	"strconv"
 )
 
 func CreateCategory(c *gin.Context) {
+	defer func() {
+		status := c.Writer.Status() >= 200 && c.Writer.Status() < 300
+		middlewares.RecordCategoryOperation("create", status)
+	}()
 	var category models.Category
 	if err := c.ShouldBindJSON(&category); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -33,6 +38,10 @@ func CreateCategory(c *gin.Context) {
 }
 
 func CreateProduct(c *gin.Context) {
+	defer func() {
+		status := c.Writer.Status() >= 200 && c.Writer.Status() < 300
+		middlewares.RecordProductOperation("create", status)
+	}()
 	var product models.Product
 	if err := c.ShouldBindJSON(&product); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -79,6 +88,10 @@ func CreateProduct(c *gin.Context) {
 }
 
 func GetProduct(c *gin.Context) {
+	defer func() {
+		status := c.Writer.Status() >= 200 && c.Writer.Status() < 300
+		middlewares.RecordProductOperation("get", status)
+	}()
 	productID, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid product ID"})
@@ -162,6 +175,10 @@ func GetProduct(c *gin.Context) {
 }
 
 func ListProducts(c *gin.Context) {
+	defer func() {
+		status := c.Writer.Status() >= 200 && c.Writer.Status() < 300
+		middlewares.RecordProductOperation("list", status)
+	}()
 	var filter models.ProductFilter
 	if err := c.ShouldBindQuery(&filter); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -251,6 +268,10 @@ func ListProducts(c *gin.Context) {
 }
 
 func UpdateProduct(c *gin.Context) {
+	defer func() {
+		status := c.Writer.Status() >= 200 && c.Writer.Status() < 300
+		middlewares.RecordProductOperation("update", status)
+	}()
 	productID, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid product ID"})
@@ -299,6 +320,10 @@ func UpdateProduct(c *gin.Context) {
 }
 
 func DeleteProduct(c *gin.Context) {
+	defer func() {
+		status := c.Writer.Status() >= 200 && c.Writer.Status() < 300
+		middlewares.RecordProductOperation("delete", status)
+	}()
 	productID, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid product ID"})
@@ -321,6 +346,10 @@ func DeleteProduct(c *gin.Context) {
 }
 
 func AddProductImage(c *gin.Context) {
+	defer func() {
+		status := c.Writer.Status() >= 200 && c.Writer.Status() < 300
+		middlewares.RecordProductOperation("add_image", status)
+	}()
 	productID, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid product ID"})
@@ -360,6 +389,10 @@ func AddProductImage(c *gin.Context) {
 }
 
 func AddProductAttribute(c *gin.Context) {
+	defer func() {
+		status := c.Writer.Status() >= 200 && c.Writer.Status() < 300
+		middlewares.RecordProductOperation("add_attribute", status)
+	}()
 	productID, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid product ID"})
