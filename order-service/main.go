@@ -8,6 +8,7 @@ import (
 	"order-service/middlewares"
 
 	"github.com/gin-gonic/gin"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 func main() {
@@ -19,6 +20,12 @@ func main() {
 
 	// 创建Gin路由
 	r := gin.Default()
+
+	// 应用Prometheus中间件
+	r.Use(middlewares.PrometheusMiddleware())
+
+	// 暴露Prometheus指标端点
+	r.GET("/metrics", gin.WrapH(promhttp.Handler()))
 
 	// 健康检查端点
 	r.GET("/health", func(c *gin.Context) {
