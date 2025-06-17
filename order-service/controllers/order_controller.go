@@ -11,9 +11,14 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"order-service/middlewares"
 )
 
 func CreateOrder(c *gin.Context) {
+	defer func() {
+		status := c.Writer.Status() >= 200 && c.Writer.Status() < 300
+		middlewares.RecordOrderOperation("create", status)
+	}()
 	userID, exists := c.Get("userID")
 	if !exists {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "User not authenticated"})
@@ -100,6 +105,10 @@ func CreateOrder(c *gin.Context) {
 }
 
 func GetUserOrders(c *gin.Context) {
+	defer func() {
+		status := c.Writer.Status() >= 200 && c.Writer.Status() < 300
+		middlewares.RecordOrderOperation("list", status)
+	}()
 	userID, exists := c.Get("userID")
 	if !exists {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "User not authenticated"})
@@ -174,6 +183,10 @@ func GetUserOrders(c *gin.Context) {
 }
 
 func GetOrderDetails(c *gin.Context) {
+	defer func() {
+		status := c.Writer.Status() >= 200 && c.Writer.Status() < 300
+		middlewares.RecordOrderOperation("details", status)
+	}()
 	userID, exists := c.Get("userID")
 	if !exists {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "User not authenticated"})
@@ -236,6 +249,10 @@ func GetOrderDetails(c *gin.Context) {
 }
 
 func UpdateOrderStatus(c *gin.Context) {
+	defer func() {
+		status := c.Writer.Status() >= 200 && c.Writer.Status() < 300
+		middlewares.RecordOrderOperation("update_status", status)
+	}()
 	userID, exists := c.Get("userID")
 	if !exists {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "User not authenticated"})
