@@ -24,12 +24,12 @@ type Config struct {
 func LoadConfig() *Config {
 	return &Config{
 		DBUser:          getEnv("DB_USER", "root"),
-		DBPassword:      getEnvFromFile("DB_PASSWORD_FILE", "DB_PASSWORD", "qzhufuchengz"),
+		DBPassword:      getEnvFromFile("DB_PASSWORD_FILE", "DB_PASSWORD", "xxxxx"),
 		DBHost:          getEnv("DB_HOST", "localhost"),
 		DBPort:          getEnv("DB_PORT", "3306"),
 		DBName:          getEnv("DB_NAME", "ecommerce"),
 		JWTSecret:       getEnvFromFile("JWT_SECRET_FILE", "JWT_SECRET", "G9mCQ19ogTkuWQY9jH2wGZASuGi/JrhstQaZy4k/01o="),
-		RabbitMQURL:     getEnv("RABBITMQ_URL", "amqp://admin:rabbitmq@47.96.130.59:5672/"),
+		RabbitMQURL:     getEnv("RABBITMQ_URL", "amqp://admin:rabbitmq@IP:5672/"),
 		OrderExchange:   getEnv("ORDER_EXCHANGE", "orders_exchange"),
 		OrderQueue:      getEnv("ORDER_QUEUE", "orders_queue"),
 		DeadLetterQueue: getEnv("DEAD_LETTER_QUEUE", "dead_letter_queue"),
