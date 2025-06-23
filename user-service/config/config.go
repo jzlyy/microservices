@@ -28,12 +28,12 @@ func LoadConfig() *Config {
 		DBPort:      getEnv("DB_PORT", "3306"),
 		DBName:      getEnv("DB_NAME", "ecommerce"),
 		JWTSecret:   getEnv("JWT_SECRET", "G9mCQ19ogTkuWQY9jH2wGZASuGi/JrhstQaZy4k/01o="),
-		RabbitMQURL: getEnv("RABBITMQ_URL", "amqp://admin:rabbitmq@47.96.130.59:5672/"),
+		RabbitMQURL: getEnv("RABBITMQ_URL", "amqp://admin:rabbitmq@IP:5672/"),
 		SMTPHost:    getEnv("SMTP_HOST", "smtp.gmail.com"),
 		SMTPPort:    getEnv("SMTP_PORT", "587"),
-		SMTPUser:    getEnv("SMTP_USER", "jzlyy68@gmail.com"),
-		SMTPPass:    getEnv("SMTP_PASS", "awdb jsid juuv virc"),
-		FromEmail:   getEnv("FROM_EMAIL", "jzlyy68@gmail.com")}
+		SMTPUser:    getEnv("SMTP_USER", ""),
+		SMTPPass:    getEnv("SMTP_PASS", ""),
+		FromEmail:   getEnv("FROM_EMAIL", "")}
 }
 
 func getEnv(key, defaultValue string) string {
