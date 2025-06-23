@@ -43,7 +43,7 @@ ENV DB_HOST=host.docker.internal \
     DB_PORT=3306 \
     DB_USER=root \
     DB_NAME=ecommerce \
-    RABBITMQ_URL=amqp://admin:rabbitmq@47.96.130.59:5672/ \
+    RABBITMQ_URL=amqp://admin:rabbitmq@IP:5672/ \
     PRODUCT_QUEUE=product_events \
     PRODUCT_EXCHANGE=product_exchange
 
